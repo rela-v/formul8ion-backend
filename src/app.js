@@ -132,7 +132,7 @@ app.get('/get-form/:id', async (req, res) => {
       res.json({ message: 'Form retrieved successfully.', form });
     } else {
       res.status(404).json({ message: 'Form not found.' });
-    }
+  }
   } catch (error) {
     // If an error occurs, send a response indicating failure
     console.error('Error retrieving form:', error);
