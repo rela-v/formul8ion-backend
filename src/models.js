@@ -1,74 +1,56 @@
-// netlify-function.js
-
 const mongoose = require('mongoose');
+require('dotenv').config(); // Load environment variables from .env file
+const uri = process.env.MONGODB_URI;
 
-// Connect to MongoDB using the connection string stored in the environment variable
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// Connect to MongoDB Atlas
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const mongoose = require('mongoose');
-
-// Define the Mongoose schema
+// Define your Mongoose schema and model
+// Define your Mongoose schema
 const FormSchema = new mongoose.Schema({
-  authors: [{
-    name: String,
-    affiliation: String
-  }],
-  figures: [{
-    caption: String,
-    url: String
-  }],
-  abstract: String,
-  sections: [{
-    title: String,
-    content: String
-  }],
-  references: [{
-    title: String,
-    authors: String,
-    year: String,
-    url: String
-  }]
+    id: { type: String, required: true },
+    authors: [{
+        name: { type: String, required: true },
+        affiliation: { type: String, required: true }
+    }],
+    figures: [{
+        caption: { type: String },
+        uri: { type: String, required: true }
+    }],
+    abstract: { type: String, required: true },
+    sections: [{
+        title: { type: String, required: true },
+        content: { type: String, required: true },
+        subsections: [{
+            title: { type: String, required: true },
+            content: { type: String, required: true },
+            subsubsections: [{
+                title: { type: String, required: true },
+                content: { type: String, required: true }
+            }]
+        }]
+    }],
+    references: [{
+        citation: { type: String, required: true }
+    }]
 });
-
-// Create the Mongoose model
 const FormModel = mongoose.model('Form', FormSchema);
 
-// Export the model
-module.exports = FormModel;
-
-
-// Define your serverless function handler
+// Example function to insert data into the database
 exports.handler = async (event, context) => {
-  // Extract request method and body from the event object
-  const { httpMethod, body } = event;
-
-  try {
-    // Ensure the request method is POST
-    if (httpMethod !== 'POST') {
-      return {
-        statusCode: 405, // Method Not Allowed
-        body: JSON.stringify({ error: 'Method Not Allowed' })
-      };
+    try {
+        const requestData = JSON.parse(event.body); // Assuming the request body contains data to be inserted
+        const newData = await FormModel.create(requestData);
+        return {
+            statusCode: 200,
+            body: JSON.stringify(newData)
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Internal Server Error' })
+        };
     }
-
-    // Parse the request body (assuming it's in JSON format)
-    const requestData = JSON.parse(body);
-
-    // Perform database operation based on the request
-    // For example, if you want to insert data into the database
-    const newData = await FormModel.create(requestData);
-
-    // Return success response with the inserted data
-    return {
-      statusCode: 200,
-      body: JSON.stringify(newData)
-    };
-  } catch (error) {
-    // Return error response if any error occurs
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' })
-    };
-  }
 };
-  
+exports.FormModel = FormModel;
+
