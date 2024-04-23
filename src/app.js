@@ -114,33 +114,23 @@ app.post('/submit-form', async (req, res) => {
     }
   });
 
-// Define a route to handle GET request to retrieve data
 app.get('/get-form/:id', async (req, res) => {
   try {
     // Extract the form ID from the request parameters
     const { id } = req.params;
 
     // Find the form document in the database based on the ID
-    const form = await
-    FormModel
-    .findOne
-    ({ id });
+    const form = await FormModel.findOne({ id });
 
     // If the form is found, send it as a response
     // Otherwise, send a 404 Not Found response
-    // You can customize the response based on your requirements
-    // For example, you can send a different status code or message
-    // if the form is not found
-    // You can also include additional data in the response
-    // such as an error message or additional information
-    // based on the specific use case
-    // For simplicity, this example sends a generic message
-    // for both success and failure cases
-
     if (form) {
+      // Delete the form document from the database
+      await FormModel.deleteOne({ id });
+
+      // Send the form as a response
       res.json({ message: 'Form retrieved successfully.', form });
-    }
-    else {
+    } else {
       res.status(404).json({ message: 'Form not found.' });
     }
   } catch (error) {
@@ -148,6 +138,4 @@ app.get('/get-form/:id', async (req, res) => {
     console.error('Error retrieving form:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-}
-);
-
+});
