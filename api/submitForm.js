@@ -44,75 +44,11 @@ const formSchema = new mongoose.Schema({
 export const FormModel = mongoose.model('Form', formSchema);
 
 
-// Define the data for the new form
-const formData = {
-    id: 'example-form-1',
-    authors: [
-        {
-            name: 'John Doe',
-            affiliation: 'University of Example'
-        },
-        {
-            name: 'Jane Smith',
-            affiliation: 'Institute of Example'
-        }
-    ],
-    figures: [
-        {
-            caption: 'Figure 1',
-            uri: 'https://example.com/figure1.jpg'
-        },
-        {
-            caption: 'Figure 2',
-            uri: 'https://example.com/figure2.jpg'
-        }
-    ],
-    abstract: 'This is an example abstract.',
-    sections: [
-        {
-            title: 'Introduction',
-            content: 'This is the introduction section.',
-            subsections: [
-                {
-                    title: 'Subsection 1',
-                    content: 'This is subsection 1 content.',
-                    subsubsections: [
-                        {
-                            title: 'Subsubsection 1',
-                            content: 'This is subsubsection 1 content.'
-                        },
-                        {
-                            title: 'Subsubsection 2',
-                            content: 'This is subsubsection 2 content.'
-                        }
-                    ]
-                },
-                {
-                    title: 'Subsection 2',
-                    content: 'This is subsection 2 content.'
-                }
-            ]
-        },
-        {
-            title: 'Methods',
-            content: 'This is the methods section.'
-        }
-    ],
-    references: [
-        {
-            citation: 'Reference 1'
-        },
-        {
-            citation: 'Reference 2'
-        }
-    ]
-};
-
 // Define the handler for the submit-form function
 module.exports = async (req, res) => {
     try {
       // Create a new form document using the FormModel
-      formData = req.body;
+      const formData = req.body;
       const form = new FormModel(formData);
   
       // Save the form document to the database
