@@ -12,7 +12,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
   });
 
 // Import the Mongoose model dynamically
-const FormModel = require('../models').FormModel;
+const FormModel = require('submitForm.js').FormModel;
 
 // Define the handler for the get-form function
 module.exports = async (req, res) => {

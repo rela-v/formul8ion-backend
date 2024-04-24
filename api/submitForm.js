@@ -41,7 +41,7 @@ const formSchema = new mongoose.Schema({
 });
 
 // Define the model based on the schema
-const FormModel = mongoose.model('Form', formSchema);
+export const FormModel = mongoose.model('Form', formSchema);
 
 
 // Define the data for the new form
