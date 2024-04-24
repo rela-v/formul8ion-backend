@@ -40,17 +40,16 @@ if (mongoose.models.Form) {
 }
 
 // Connect to MongoDB Atlas
-(async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log('Connected to MongoDB Atlas');
-    } catch (error) {
-        console.error('Error connecting to MongoDB Atlas:', error);
-    }
-})();
+mongoose.connect(process.env.MONGODB_URI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+})
+.then(() => {
+    console.log('Connected to MongoDB Atlas');
+})
+.catch((error) => {
+    console.error('Error connecting to MongoDB Atlas:', error);
+});
 
 // Define the handler for the submit-form function
 const submitForm = async (req, res) => {
@@ -74,3 +73,4 @@ const submitForm = async (req, res) => {
 };
 
 module.exports = submitForm;
+
