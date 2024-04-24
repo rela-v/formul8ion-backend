@@ -74,4 +74,3 @@ const submitForm = async (req, res) => {
 };
 
 module.exports = submitForm;
-
