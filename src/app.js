@@ -97,6 +97,21 @@ const formData = {
     ]
 };
 
+// Define a root URL endpoint
+//
+app.get('/', (req, res) => {
+  try {
+    // Send a response with a welcome message
+    // and a link to the form submission endpoint
+    res.send('Welcome to the Form Submission Service! ' +
+      'Submit a form by making a POST request to /submit-form');
+  } catch (error) {
+    // If an error occurs, send a response indicating failure
+    console.error('Error handling root request:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.post('/submit-form', async (req, res) => {
     try {
       // Create a new form document using the FormModel
