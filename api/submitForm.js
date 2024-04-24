@@ -39,13 +39,16 @@ if (mongoose.models.Form) {
     FormModel = mongoose.model('Form', formSchema);
 }
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log("Connected to MongoDB Atlas");
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB Atlas:", error);
-  });
+const mongoose = require('mongoose');
+
+module.exports = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI, {});
+        console.log("CONNECTED TO DATABASE SUCCESSFULLY");
+    } catch (error) {
+        console.error('COULD NOT CONNECT TO DATABASE:', error.message);
+    }
+};
 
 // Define the handler for the submit-form function
 const submitForm = async (req, res) => {
