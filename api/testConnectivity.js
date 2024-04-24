@@ -9,3 +9,5 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .catch((error) => {
     console.error("Error connecting to MongoDB Atlas:", error);
   });
+
+module.exports = testConnectivity;

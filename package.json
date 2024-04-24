@@ -10,8 +10,6 @@
   "author": "rela-v",
   "license": "MIT",
   "dependencies": {
-    "api": "file:./getForm.js",
-    "api": "file:./submitForm.js",
     "api": "file:./testConnectivity.js",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",

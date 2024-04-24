@@ -1,5 +1,14 @@
-const mongoose = require('mongoose');
 require('dotenv').config(); // Load environment variables from .env file
+
+// Set up mongoose connection
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+const mongoDB = "mongodb+srv://formul8ion-app:iL9gTAKNrzZr7VeG@formul8ioncluster.srwkxuy.mongodb.net/?retryWrites=true&w=majority&appName=formul8ionCluster";
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+}
 
 // Define the schema for the form data
 const formSchema = new mongoose.Schema({
@@ -30,45 +39,4 @@ const formSchema = new mongoose.Schema({
     }]
 });
 
-// Define the model based on the schema
-let FormModel;
-
-if (mongoose.models.Form) {
-    FormModel = mongoose.model('Form');
-} else {
-    FormModel = mongoose.model('Form', formSchema);
-}
-
-
-module.exports = async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URI, {});
-        console.log("CONNECTED TO DATABASE SUCCESSFULLY");
-    } catch (error) {
-        console.error('COULD NOT CONNECT TO DATABASE:', error.message);
-    }
-};
-
-// Define the handler for the submit-form function
-const submitForm = async (req, res) => {
-    try {
-        // Parse form data from the request body
-        const formData = req.body;
-
-        // Create a new form document using the FormModel
-        const form = new FormModel(formData);
-
-        // Save the form document to the database
-        await form.save();
-
-        // Send a response indicating success
-        res.json({ message: 'Form submitted successfully.' });
-    } catch (error) {
-        // If an error occurs, send a response indicating failure
-        console.error('Error submitting form:', error.message);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};
-
-module.exports = submitForm;
-
+module.exports = mongoose.model("Form", formSchema);
