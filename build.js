@@ -13,7 +13,7 @@ if (!fs.existsSync(apiDir)) {
 }
 
 // Copy serverless function files into the api directory
-copyFile(path.join(__dirname, 'submitForm.js'), path.join(apiDir, 'submitForm.js'));
-copyFile(path.join(__dirname, 'getForm.js'), path.join(apiDir, 'getForm.js'));
+copyFile(path.join(__dirname, 'api/submitForm.js'), path.join(apiDir, 'submitForm.js'));
+copyFile(path.join(__dirname, 'api/getForm.js'), path.join(apiDir, 'getForm.js'));
 
 console.log('Build completed successfully.');
