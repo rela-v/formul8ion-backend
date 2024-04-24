@@ -41,8 +41,7 @@ const formSchema = new mongoose.Schema({
 });
 
 // Define the model based on the schema
-export const FormModel = mongoose.model('Form', formSchema);
-
+const FormModel = mongoose.model('Form', formSchema);
 
 // Define the handler for the submit-form function
 module.exports = async (req, res) => {
@@ -62,3 +61,4 @@ module.exports = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
