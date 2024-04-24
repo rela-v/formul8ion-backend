@@ -39,6 +39,5 @@ async function main() {
   });
 
   // Export the model
-  module.exports.FormModel = mongoose.model('Form', formSchema);
 }
 module.exports=main;
