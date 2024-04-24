@@ -11,8 +11,38 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
     console.error('Error connecting to MongoDB Atlas:', error);
   });
 
-// Import the Mongoose model dynamically
-const FormModel = require('../models').FormModel;
+// Define the schema for the form data
+const formSchema = new mongoose.Schema({
+    id: String,
+    authors: [{
+        name: String,
+        affiliation: String
+    }],
+    figures: [{
+        caption: String,
+        uri: String
+    }],
+    abstract: String,
+    sections: [{
+        title: String,
+        content: String,
+        subsections: [{
+            title: String,
+            content: String,
+            subsubsections: [{
+                title: String,
+                content: String
+            }]
+        }]
+    }],
+    references: [{
+        citation: String
+    }]
+});
+
+// Define the model based on the schema
+const FormModel = mongoose.model('Form', formSchema);
+
 
 // Define the data for the new form
 const formData = {
