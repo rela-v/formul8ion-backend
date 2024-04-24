@@ -41,4 +41,4 @@ async function main() {
   // Export the model
   module.exports = mongoose.model("Form", formSchema);
 }
-
+module.exports=main;
