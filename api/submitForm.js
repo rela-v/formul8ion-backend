@@ -1,9 +1,6 @@
 const FormModel = require('../components/Form');
 const db = require('./connectToDB');
 
-const FormModel = require('../components/Form');
-const db = require('./connectToDB');
-
 const submitForm = async (req, res) => {
     try {
         const formData = req.body; // Get the form data from the request body
@@ -15,8 +12,6 @@ const submitForm = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' }); // Send error response
     }
 };
-
-module.exports = submitForm;
 
 module.exports = submitForm;
 
