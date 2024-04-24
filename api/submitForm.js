@@ -112,6 +112,7 @@ const formData = {
 module.exports = async (req, res) => {
     try {
       // Create a new form document using the FormModel
+      formData = req.body;
       const form = new FormModel(formData);
   
       // Save the form document to the database
