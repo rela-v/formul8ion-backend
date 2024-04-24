@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 const FormModel = require('./submitForm.js').FormModel;
 
 // Define the handler for the get-form function
-module.exports = async (req, res) => {
+const getForm = async (req, res) => {
   try {
     // Extract the form ID from the request parameters
     const { id } = req.query;
