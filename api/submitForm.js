@@ -1,8 +1,9 @@
 const FormModel = require('../components/Form');
 const db = require('./connectToDB');
 
-const submitForm = async (formData) => {
+const submitForm = async (req, res) => {
     try {
+        const formData = req.body; // Get the form data from the request body
         await db(); // Connect to the database
         await FormModel.create(formData); // Create a new form document
         return { message: 'Form submitted successfully.' }; // Return success message
