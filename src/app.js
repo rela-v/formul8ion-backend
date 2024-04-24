@@ -1,37 +1,18 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const axios = require('axios');
-
 require('dotenv').config(); // Load environment variables from .env file
-
-const app = express();
-
-// Middleware for parsing JSON data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to MongoDB Atlas
 const MONGODB_URI = process.env.MONGODB_URI;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB Atlas');
-    
-    // Start the server after successful database connection
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
   })
   .catch((error) => {
     console.error('Error connecting to MongoDB Atlas:', error);
-  });// Connect to MongoDB Atlas
+  });
 
 // Import the Mongoose model dynamically
 const FormModel = require('./models').FormModel;
-
-// Define the URL of your backend server
-const SERVER_URL = 'http://localhost:3000'; // Change this to your actual server URL
 
 // Define the data for the new form
 const formData = {
@@ -97,22 +78,8 @@ const formData = {
     ]
 };
 
-// Define a root URL endpoint
-//
-app.get('/', (req, res) => {
-  try {
-    // Send a response with a welcome message
-    // and a link to the form submission endpoint
-    res.send('Welcome to the Form Submission Service! ' +
-      'Submit a form by making a POST request to /submit-form');
-  } catch (error) {
-    // If an error occurs, send a response indicating failure
-    console.error('Error handling root request:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-app.post('/submit-form', async (req, res) => {
+// Define the handler for the submit-form function
+module.exports.submitForm = async (req, res) => {
     try {
       // Create a new form document using the FormModel
       const form = new FormModel(formData);
@@ -127,12 +94,13 @@ app.post('/submit-form', async (req, res) => {
       console.error('Error submitting form:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-  });
+};
 
-app.get('/get-form/:id', async (req, res) => {
+// Define the handler for the get-form function
+module.exports.getForm = async (req, res) => {
   try {
     // Extract the form ID from the request parameters
-    const { id } = req.params;
+    const { id } = req.query;
 
     // Find the form document in the database based on the ID
     const form = await FormModel.findOne({ id });
@@ -147,10 +115,10 @@ app.get('/get-form/:id', async (req, res) => {
       res.json({ message: 'Form retrieved successfully.', form });
     } else {
       res.status(404).json({ message: 'Form not found.' });
-  }
+    }
   } catch (error) {
     // If an error occurs, send a response indicating failure
     console.error('Error retrieving form:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
+};
