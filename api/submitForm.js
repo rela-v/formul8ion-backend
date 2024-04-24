@@ -44,7 +44,6 @@ mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
     // Replace useCreateIndex with createIndexes
-    createIndexes: true // Added for better performance
 })
   .then(() => {
     console.log('Connected to MongoDB Atlas');
