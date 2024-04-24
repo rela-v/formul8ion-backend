@@ -3,7 +3,7 @@ require('dotenv').config(); // Load environment variables from .env file
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = `${process.env.MONGODB_URI}`;
+const mongoDB = process.env.MONGODB_URI;
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -39,6 +39,6 @@ async function main() {
   });
 
   // Export the model
-  module.exports = mongoose.model("Form", formSchema);
+  module.exports.FormModel = mongoose.model('Form', formSchema);
 }
 module.exports=main;
