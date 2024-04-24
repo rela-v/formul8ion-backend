@@ -10,7 +10,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
 
 // Import the Mongoose model dynamically
-const FormModel = require('submitForm.js').FormModel;
+const FormModel = require('./submitForm.js').FormModel;
 
 // Define the handler for the get-form function
 module.exports = async (req, res) => {
