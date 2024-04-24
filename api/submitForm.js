@@ -68,3 +68,5 @@ module.exports = async (req, res) => {
     }
 };
 
+module.exports = submitForm;
+
