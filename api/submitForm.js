@@ -1,17 +1,22 @@
 const FormModel = require('../components/Form');
 const db = require('./connectToDB');
 
+const FormModel = require('../components/Form');
+const db = require('./connectToDB');
+
 const submitForm = async (req, res) => {
     try {
         const formData = req.body; // Get the form data from the request body
         await db(); // Connect to the database
         await FormModel.create(formData); // Create a new form document
-        return { message: 'Form submitted successfully.' }; // Return success message
+        res.status(200).json({ message: 'Form submitted successfully.' }); // Send success response
     } catch (error) {
         console.error('Error submitting form:', error.message); // Log the error
-        throw error; // Throw the error for handling elsewhere
+        res.status(500).json({ error: 'Internal Server Error' }); // Send error response
     }
 };
+
+module.exports = submitForm;
 
 module.exports = submitForm;
 
