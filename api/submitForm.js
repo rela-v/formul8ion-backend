@@ -49,8 +49,10 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Define the handler for the submit-form function
 module.exports = async (req, res) => {
     try {
-        // Create a new form document using the FormModel
+        // Parse form data from the request body
         const formData = req.body;
+
+        // Create a new form document using the FormModel
         const form = new FormModel(formData);
 
         // Save the form document to the database
@@ -60,7 +62,8 @@ module.exports = async (req, res) => {
         res.json({ message: 'Form submitted successfully.' });
     } catch (error) {
         // If an error occurs, send a response indicating failure
-        console.error('Error submitting form:', error);
+        console.error('Error submitting form:', error.message);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
