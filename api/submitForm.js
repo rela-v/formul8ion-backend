@@ -39,7 +39,6 @@ if (mongoose.models.Form) {
     FormModel = mongoose.model('Form', formSchema);
 }
 
-const mongoose = require('mongoose');
 
 module.exports = async () => {
     try {
