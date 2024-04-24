@@ -40,4 +40,5 @@ async function main() {
 
   // Export the model
 }
+main().catch(console.error);
 module.exports=main;
