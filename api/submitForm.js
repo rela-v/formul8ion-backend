@@ -54,7 +54,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 // Define the handler for the submit-form function
-module.exports = async (req, res) => {
+const submitForm = async (req, res) => {
     try {
         // Parse form data from the request body
         const formData = req.body;
