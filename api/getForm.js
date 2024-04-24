@@ -13,12 +13,12 @@ mongoose.connect(process.env.MONGODB_URI, {
     console.error('Error connecting to MongoDB Atlas:', error);
 });
 
-// Import the Mongoose model dynamically
-const FormModel = require('./submitForm.js').FormModel;
-
 // Define the handler for the get-form function
 const getForm = async (req, res) => {
   try {
+    // Import the Mongoose model dynamically
+    const FormModel = require('./submitForm.js').FormModel;
+
     // Extract the form ID from the request parameters
     const { id } = req.query;
 
