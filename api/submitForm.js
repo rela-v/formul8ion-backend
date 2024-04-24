@@ -37,9 +37,10 @@ const FormModel = mongoose.model('Form', formSchema);
 mongoose.connect(process.env.MONGODB_URI, { 
     useNewUrlParser: true, 
     useUnifiedTopology: true,
-    useCreateIndex: true // Added for better performance
+    // Replace useCreateIndex with createIndexes
+    createIndexes: true // Added for better performance
 })
-.then(() => {
+  .then(() => {
     console.log('Connected to MongoDB Atlas');
 })
 .catch((error) => {
