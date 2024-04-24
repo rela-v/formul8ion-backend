@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 require('dotenv').config(); // Load environment variables from .env file
 
 // Connect to MongoDB Atlas
-// Connect to MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI, { 
     useNewUrlParser: true, 
     useUnifiedTopology: true
@@ -44,6 +43,5 @@ const getForm = async (req, res) => {
   }
 };
 
-// Deploy
-//
 module.exports = getForm;
+
