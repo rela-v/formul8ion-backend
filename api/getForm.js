@@ -2,14 +2,12 @@ const mongoose = require('mongoose');
 require('dotenv').config(); // Load environment variables from .env file
 
 // Connect to MongoDB Atlas
-const MONGODB_URI = process.env.MONGODB_URI;
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected to MongoDB Atlas');
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB Atlas:', error);
-  });
+mongoose.connect(process.env.MONGODB_URI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    // Replace createindexes with createIndexes
+    createIndexes: true // Added for better performance
+})
 
 // Import the Mongoose model dynamically
 const FormModel = require('submitForm.js').FormModel;

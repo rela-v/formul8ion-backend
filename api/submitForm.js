@@ -31,7 +31,13 @@ const formSchema = new mongoose.Schema({
 });
 
 // Define the model based on the schema
-const FormModel = mongoose.model('Form', formSchema);
+let FormModel;
+
+if (mongoose.models.Form) {
+    FormModel = mongoose.model('Form');
+} else {
+    FormModel = mongoose.model('Form', formSchema);
+}
 
 // Connect to MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI, { 
